@@ -9,7 +9,7 @@ def parse_coins(pair='BTC'):
 
     arr_usdt = list()
     for coin in r.json():
-        if coin['symbol'][-4:] == 'USDT':
+        if coin['symbol'][-4:] == 'BUSD':
             arr_usdt.append(coin['symbol'][:-4])
 
     arr = list()

@@ -20,11 +20,30 @@ coins_data = {}
 def message_handler(data):
     # logging.info(message)
     print(data)
+
     name = data['data']['s']
-    coins_data[name] = data
+    name_c = ''
+    if 'BUSD' in name:
+        name_c = name[:-4]
+    else:
+        name_c = name[:-3]
+    
+    print(name_c, name)
+    exist = False
+    for i in coins_data:
+        if i == name_c:
+            exist = True
+    
+    if not exist:
+        coins_data[name_c] = {
+                                name_c + 'BUSD': {}, 
+                                name_c + 'BTC': {}
+                            }
+
+    coins_data[name_c][name] = data['data']
 
 
-def scan_coin(coin=None, pairs=('BTC', 'USDT')):
+def scan_coin(coin=None, pairs=('BTC', 'BUSD')):
 
     if coin == None:
         logging.error('EXPECTED COIN')
