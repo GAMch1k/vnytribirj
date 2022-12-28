@@ -17,16 +17,23 @@ my_client.start()
 coins_data = {}
 
 
+def calculate_profit():
+    print('calculating...')
+
+
 def message_handler(data):
     # logging.info(message)
     print(data)
 
     name = data['data']['s']
     name_c = ''
+    name_s = ''
     if 'BUSD' in name:
         name_c = name[:-4]
+        name_s = 'BUSD'
     else:
         name_c = name[:-3]
+        name_s = 'BTC'
     
     print(name_c, name)
     exist = False
@@ -41,6 +48,9 @@ def message_handler(data):
                             }
 
     coins_data[name_c][name] = data['data']
+
+    if coins_data[name_c][name] and coins_data[name_c][name_c + name_s]:
+        calculate_profit()
 
 
 def scan_coin(coin=None, pairs=('BTC', 'BUSD')):
